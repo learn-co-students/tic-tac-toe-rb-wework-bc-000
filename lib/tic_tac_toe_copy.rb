@@ -28,9 +28,15 @@ def turn(board)
   input = gets.strip
   index = input_to_index(input)
   if valid_move?(board, index)
-    move(board, index, current_player(board))
+    move(board, index)
     display_board(board)
   else
+    turn(board)
+  end
+end
+
+def play(board)
+  9.times do
     turn(board)
   end
 end
@@ -93,22 +99,6 @@ def winner(board)
     return board[won?(board)[0]]
   else
     return nil
-  end
-end
-
-def play(board)
-
-  puts "Welcome to Tic Tac Toe!"
-
-  until over?(board) do
-    display_board(board)
-    turn(board)
-  end
-  
-  if won?(board)
-    puts "Congratulations #{winner(board)}!"
-  else
-    puts "Cat's Game!"
   end
 end
 
