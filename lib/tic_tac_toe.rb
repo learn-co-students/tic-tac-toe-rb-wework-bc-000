@@ -1,4 +1,6 @@
-board = [" "," "," "," "," "," "," "," "," "]
+def initialize_board(board)
+  board = [" "," "," "," "," "," "," "," "," "]
+end
 
 def welcome
   puts puts "Welcome to Tic Tac Toe!"
@@ -61,13 +63,19 @@ def valid_move? (array,index)
 end
 
 def turn(board)
+  puts "It's #{current_player(board)}'s turn!'"
   puts "Please enter 1-9:"
     input = gets.strip
     index = input_to_index(input)
   if valid_move?(board, index)
     move(board, index, current_player(board))
+    puts "Nice move!"
     display_board(board)
+  elsif position_taken?(board,index)
+    puts "Position taken! Try again!"
+    turn(board)
   else
+    puts "Invalid entry! Try again!"
     turn(board)
   end
 end
@@ -118,9 +126,25 @@ def play(board)
     play(board)
   elsif winner(board) == "X"
     puts "Congratulations X!"
+    #play_again?(board)
   elsif winner(board) == "O"
     puts "Congratulations O!"
+    #play_again?(board)
   elsif draw?(board)
     puts "Cat's Game!"
+    #play_again?(board)
+  end
+end
+
+def play_again?(board)
+  puts "Press 1 to play again! Press 2 to exit"
+  input = gets.strip
+  if input == "1"
+    initialize_board(board)
+    play(board)
+  elsif input == "2"
+    puts "Goodbye!"
+  else
+    play_again?(board)
   end
 end
