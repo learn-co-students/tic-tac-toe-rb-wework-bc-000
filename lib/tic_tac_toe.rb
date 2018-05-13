@@ -63,13 +63,9 @@ def winner(board)
 end 
 
 def turn_count(board)
-  count = 0 
-  board.each do |space|
-    if space == "O" || space == "X"
-      count += 1
-    end
-  end 
-  return count
+  
+  board.count { |x| x == "X" || x == "O"}
+  
 end 
 
 def current_player(board)
