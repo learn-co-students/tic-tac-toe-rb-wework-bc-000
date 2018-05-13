@@ -1,3 +1,5 @@
+require "pry"
+
 def position_taken?(board, index)
   !(board[index].nil? || board[index] == " ")
 end
@@ -16,9 +18,9 @@ WIN_COMBINATIONS = [
 
 def won?(board)
   
-  if !board.include? ("X" || "O")
-    return false
-  end 
+ # if !board.include? ("X" || "O")
+  #  return false
+ # end 
   
   WIN_COMBINATIONS.each do |win_combination|
     win_index_1 = win_combination[0]
@@ -42,7 +44,7 @@ def won?(board)
 end 
 
 def full?(board)
-  board.none? {|i| i == " "}
+  board.all? {|i| i == "X" || i == "O"}
 end 
 
 def draw?(board)
@@ -50,22 +52,20 @@ def draw?(board)
 end 
 
 def over?(board)
-  won?(board) || draw?(board) || full?(board)
+  won?(board) || draw?(board)
 end 
 
 def winner(board)
   if won?(board)
     winning_combo = won?(board)
     return board[winning_combo[0]]
-  else 
-    return nil 
+  # else 
+  #   return nil 
   end 
 end 
 
 def turn_count(board)
-  
   board.count { |x| x == "X" || x == "O"}
-  
 end 
 
 def current_player(board)
@@ -116,7 +116,7 @@ def play(board)
     win = winner(board)
     puts "Congratulations #{win}!"
   elsif draw?(board)
-    puts "Cat\'s Game!"
+    puts "Cat's Game!"
   end 
   
 end
